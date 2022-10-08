@@ -9,11 +9,11 @@ export default function Dice(props) {
     return(
     <div className ="allDice">
         <div className="containerDice">
-        { props.nums.map((num) => {
+        {props.nums.map((num) => {
                 id++
             return (
-                    <div key = {id} className="dice">
-                        <h1>{num}</h1>
+                    <div key = {id} className="dice" onClick = {props.handleClick}>
+                        <h1>{num.value}</h1>
                     </div>
                 )
             })}

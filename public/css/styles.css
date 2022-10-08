@@ -1,12 +1,17 @@
 .dice{
     height: 130px;
     width: 130px;
+    margin: 2px;
     background-color: lightgrey;
     border: 2px solid black;
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.dice:hover{
+    cursor: pointer;
 }
 
 .dice > h1{
@@ -16,6 +21,7 @@
 .containerDice{
     display: flex;
     justify-content: space-evenly;
+    width: 45vw;
 }
 
 .playScreen{
@@ -41,4 +47,30 @@
 .allDice{
     display: flex;
     flex-direction: column;
+}
+
+.playScreen{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.playScreen > h1 {
+    font-size: 80px;
+    text-decoration: underline;
+}
+
+.scoreCard{
+    background-color:lightgrey;
+    width:600px;
+    height:500px;
+    margin: 20px;
+
+}
+.scoreCards{
+    display: flex;
+    justify-content: space-around;
 }
