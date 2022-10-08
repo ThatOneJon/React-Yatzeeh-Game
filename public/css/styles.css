@@ -1,0 +1,44 @@
+.dice{
+    height: 130px;
+    width: 130px;
+    background-color: lightgrey;
+    border: 2px solid black;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dice > h1{
+    font-size: 50px;
+}
+
+.containerDice{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.playScreen{
+    width: 50vw;
+    background-color: lightblue;
+}
+
+.diceRoll{
+    align-self: center;
+    margin-top: 50px;
+    width: 200px;
+    height: 50px;
+    font-weight: bold;
+    border-radius: 10px;
+    background-color:#a55beb;
+    color: white;
+    font-size: 20px;
+    border: 2px solid black;
+}
+.diceRoll:hover{
+    cursor: pointer;
+}
+.allDice{
+    display: flex;
+    flex-direction: column;
+}
