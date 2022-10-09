@@ -2,6 +2,7 @@ import React from 'react'
 import Landing from "./components/landing"
 import Dice from "./components/Dice"
 import ScoreCard from "./components/scoreCard"
+import { nanoid } from "nanoid"
 
 function App() {
    const [gameInProgress, setGameInProgress] = React.useState(true)
@@ -9,13 +10,13 @@ function App() {
    const [diceValues, setDiceValues] = React.useState([{
       holding: false,
       value: 0,
+      id: ""
 
    }])
 
-
    React.useEffect(() => {
-      const newVal = rollDice.map((die) => ({holding: false, value: die}) )
-      setDiceValues(newVal)
+      let ind = 0
+      setDiceValues(rollDice.map((die) => (ind++, {id: ind, holding: false, value: die})))
 
    },[rollDice])
 
@@ -32,18 +33,28 @@ function App() {
    }
 
 
-   function toggleHold() {
-      setDiceValues(prev => ({...prev, holding : !prev}))
-      console.log("He")
+   function toggleHold(event) {
+      setDiceValues(prev => prev.map(one => one.id == event.target.id ? {...one, holding : !one.holding} : one))
+      console.log(diceValues)
    }
 
+
+   function rollDiceHold(){
+      setDiceValues(previ => {
+         return (previ.map(one => {
+              return( one.holding ? one : {...one, value: Math.ceil(Math.random() * 6)} )
+            }
+         ))
+      })
+
+   }
 
    return (
        !gameInProgress ? <Landing start ={ () => setGameInProgress() } />     
        : 
        <div className = "playScreen">
             <h1>Yatzeeh!</h1>
-            <Dice nums ={diceValues} roll = {() => setRollDice(newDice()) } handleClick = {() => toggleHold ()}  />
+            <Dice nums ={diceValues} roll = {() => rollDiceHold()} handleClick = {toggleHold}  />
             <ScoreCard />
       </div>
    )

@@ -12,7 +12,8 @@ export default function Dice(props) {
         {props.nums.map((num) => {
                 id++
             return (
-                    <div key = {id} className="dice" onClick = {props.handleClick}>
+
+              <div key = {id} className="dice" onClick = { event => props.handleClick(event) } id = {num.id}>
                         <h1>{num.value}</h1>
                     </div>
                 )
