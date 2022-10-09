@@ -2,9 +2,9 @@ import React from 'react'
 import Landing from "./components/landing"
 import Dice from "./components/Dice"
 import ScoreCard from "./components/scoreCard"
-import { nanoid } from "nanoid"
 
 function App() {
+   const [rounds, setRounds] = React.useState({round:0, data: {rollcounter: 0  }})
    const [gameInProgress, setGameInProgress] = React.useState(true)
    const [rollDice, setRollDice] = React.useState(newDice())
    const [diceValues, setDiceValues] = React.useState([{
@@ -17,7 +17,6 @@ function App() {
    React.useEffect(() => {
       let ind = 0
       setDiceValues(rollDice.map((die) => (ind++, {id: ind, holding: false, value: die})))
-
    },[rollDice])
 
 
@@ -35,20 +34,19 @@ function App() {
 
    function toggleHold(event) {
       setDiceValues(prev => prev.map(one => one.id == event.target.id ? {...one, holding : !one.holding} : one))
-      console.log(diceValues)
    }
 
 
    function rollDiceHold(){
+      setRounds(prev => ({round: prev.round , data:{rollcounter: prev.data.rollcounter + 1 }}))
+
       setDiceValues(previ => {
          return (previ.map(one => {
               return( one.holding ? one : {...one, value: Math.ceil(Math.random() * 6)} )
             }
          ))
       })
-
    }
-
    return (
        !gameInProgress ? <Landing start ={ () => setGameInProgress() } />     
        : 

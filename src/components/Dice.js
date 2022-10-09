@@ -13,7 +13,7 @@ export default function Dice(props) {
                 id++
             return (
 
-              <div key = {id} className="dice" onClick = { event => props.handleClick(event) } id = {num.id}>
+              <div key = {id} className="dice" onClick = { event => props.handleClick(event) } id = {num.id} style = {num.holding ? {backgroundColor:"lightgreen"} : null} >
                         <h1>{num.value}</h1>
                     </div>
                 )
