@@ -66,11 +66,17 @@
 .scoreCard{
     background-color:lightgrey;
     width:600px;
-    height:500px;
+    min-height:500px;
     margin: 20px;
 
 }
+
+.scoreCard > h2 {
+    text-decoration: underline;
+}
+
 .scoreCards{
     display: flex;
     justify-content: space-around;
 }
+
