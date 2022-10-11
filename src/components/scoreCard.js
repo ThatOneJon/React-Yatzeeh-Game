@@ -11,7 +11,6 @@ export default function ScoreCard(props){
             ones[i].holding && onesArray.push(<i className="bi bi-dice-1" key = {i+1}></i>)
         }
         
-
     const two = props.dice.filter(x => x.value === 2)
     const twoArray = []
         for( let i = 0; i < two.length; i++){
@@ -42,6 +41,12 @@ export default function ScoreCard(props){
             six[i].holding && sixArray.push(<i className="bi bi-dice-6" key = {i+1}></i>)
         }
 
+    let threeKindValue = 0
+    const heldDice = props.dice.filter(x => x.holding === true)
+        if(heldDice.length === 3){
+                heldDice.every(x => x.value === heldDice[0].value ? true : false) ? threeKindValue = heldDice[0].value * 3 : threeKindValue = 0
+            }
+
 
     return(
         <div className = "scoreCards">
@@ -60,19 +65,19 @@ export default function ScoreCard(props){
                 <hr></hr>
             </div>
             <div className = "scoreCard"> 
-            <h2>Three of a Kind: </h2> 
+            <h2>Three of a Kind :  </h2> <div className="amountheld">  Points:  {threeKindValue} </div>
                 <hr></hr>
-                <h2>Four of a Kind: </h2> 
+                <h2>Four of a Kind:  Points:</h2> 
                 <hr></hr>
-                <h2>Full house: </h2> 
+                <h2>Full house: Points: 25</h2> 
                 <hr></hr>
-                <h2>Small straight: </h2> 
+                <h2>Small straight: Points: 30</h2> 
                 <hr></hr>
-                <h2>Large straight: </h2> 
+                <h2>Large straight: Points: 40</h2> 
                 <hr></hr>
-                <h2>Yahtzee: </h2> 
+                <h2>Yahtzee: Points: 50</h2> 
                 <hr></hr>
-                <h2>Chance: </h2> 
+                <h2>Chance: Points:</h2> 
             </div>
        </div>
     )
