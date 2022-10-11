@@ -53,7 +53,7 @@ function App() {
        <div className = "playScreen">
             <h1>Yatzeeh!</h1>
             <Dice nums ={diceValues} roll = {() => rollDiceHold()} handleClick = {toggleHold}  />
-            <ScoreCard />
+            <ScoreCard dice = {diceValues} />
       </div>
    )
 }

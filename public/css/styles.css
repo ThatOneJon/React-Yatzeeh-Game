@@ -27,6 +27,7 @@
 .playScreen{
     width: 50vw;
     background-color: lightblue;
+    min-height: 100vh;
 }
 
 .diceRoll{
@@ -68,10 +69,11 @@
     width:600px;
     min-height:500px;
     margin: 20px;
+    padding: 10px;
 
 }
 
-.scoreCard > h2 {
+.scoreCard>h2 {
     text-decoration: underline;
 }
 
@@ -80,3 +82,9 @@
     justify-content: space-around;
 }
 
+.amountheld{
+    font-weight: bold;
+    font-size: 27px;
+    display: flex;
+    justify-content: space-evenly;
+}
