@@ -40,7 +40,7 @@ export default function ScoreCard(props){
         for( let i = 0; i < six.length; i++){
             six[i].holding && sixArray.push(<i className="bi bi-dice-6" key = {i+1}></i>)
         }
-    
+
     let fullHouse = []
     let threeKindValue = 0
     let numberDice = ""
@@ -57,15 +57,18 @@ export default function ScoreCard(props){
                 let values = heldDice.map(val => val.value)
                 const toFindDuplicates = values.filter((item, index) => values.indexOf(item) !== index)
                     if (toFindDuplicates.length === 3){
-                        for(const num of toFindDuplicates){
-                            console.log(num)
-                        }
+                        toFindDuplicates.sort()
+                        
+                        toFindDuplicates[0] === toFindDuplicates[1] ? fullHouse.push(toFindDuplicates[0], toFindDuplicates[0], toFindDuplicates[0], toFindDuplicates[2], toFindDuplicates[2])
+                        : 
+                        fullHouse.push(toFindDuplicates[2], toFindDuplicates[2], toFindDuplicates[2], toFindDuplicates[0], toFindDuplicates[0])
                     }
+
                 
             }
             
-
-
+        const fullHouseIcons = fullHouse.map(die => {return (<i className = {`bi bi-dice-${String(die)}`}> </i> )}) 
+        
 
     return(
         <div className = "scoreCards">
@@ -88,7 +91,7 @@ export default function ScoreCard(props){
                 <hr></hr>
                 <h2>Four of a Kind: </h2><h2> <i className= {heldDice.length === 4 && numberDice}></i> </h2> <div className="amountheld"> Points:  {heldDice.length === 4 && threeKindValue} </div>
                 <hr></hr>
-                <h2>Full house: </h2><h2> <i className= "a"></i> </h2> <div className="amountheld"> Points:  {threeKindValue} </div>
+                <h2>Full house: </h2><h2> </h2> {fullHouseIcons} <div className="amountheld"> Points:  {fullHouse.length === 5 && "25"} </div>
                 <hr></hr>
                 <h2>Small straight: </h2><h2> <i className= "a"></i> </h2> <div className="amountheld"> Points:  {threeKindValue} </div>
                 <hr></hr>
