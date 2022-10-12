@@ -40,12 +40,31 @@ export default function ScoreCard(props){
         for( let i = 0; i < six.length; i++){
             six[i].holding && sixArray.push(<i className="bi bi-dice-6" key = {i+1}></i>)
         }
-
+    
+    let fullHouse = []
     let threeKindValue = 0
+    let numberDice = ""
     const heldDice = props.dice.filter(x => x.holding === true)
         if(heldDice.length === 3){
                 heldDice.every(x => x.value === heldDice[0].value ? true : false) ? threeKindValue = heldDice[0].value * 3 : threeKindValue = 0
+                numberDice = "bi bi-dice-3"
+            }else if(heldDice.length === 4){
+                heldDice.every(x => x.value === heldDice[0].value ? true : false) ? threeKindValue = heldDice[0].value * 4 : threeKindValue = 0
+                numberDice = "bi bi-dice-4"
+            }else if (heldDice.length === 5){
+                heldDice.every(x => x.value === heldDice[0].value ? true : false) ? threeKindValue = 50 : threeKindValue = 0
+
+                let values = heldDice.map(val => val.value)
+                const toFindDuplicates = values.filter((item, index) => values.indexOf(item) !== index)
+                    if (toFindDuplicates.length === 3){
+                        for(const num of toFindDuplicates){
+                            console.log(num)
+                        }
+                    }
+                
             }
+            
+
 
 
     return(
@@ -65,19 +84,19 @@ export default function ScoreCard(props){
                 <hr></hr>
             </div>
             <div className = "scoreCard"> 
-            <h2>Three of a Kind :  </h2> <div className="amountheld">  Points:  {threeKindValue} </div>
+            <h2>Three of a Kind : </h2> <h2> <i className= {heldDice.length === 3 && numberDice}></i> </h2> <div className="amountheld"> Points:  {heldDice.length === 3 && threeKindValue} </div>
                 <hr></hr>
-                <h2>Four of a Kind:  Points:</h2> 
+                <h2>Four of a Kind: </h2><h2> <i className= {heldDice.length === 4 && numberDice}></i> </h2> <div className="amountheld"> Points:  {heldDice.length === 4 && threeKindValue} </div>
                 <hr></hr>
-                <h2>Full house: Points: 25</h2> 
+                <h2>Full house: </h2><h2> <i className= "a"></i> </h2> <div className="amountheld"> Points:  {threeKindValue} </div>
                 <hr></hr>
-                <h2>Small straight: Points: 30</h2> 
+                <h2>Small straight: </h2><h2> <i className= "a"></i> </h2> <div className="amountheld"> Points:  {threeKindValue} </div>
                 <hr></hr>
-                <h2>Large straight: Points: 40</h2> 
+                <h2>Large straight: </h2><h2> <i className= "a"></i> </h2> <div className="amountheld"> Points:  {threeKindValue} </div>
                 <hr></hr>
-                <h2>Yahtzee: Points: 50</h2> 
+                <h2>Yahtzee: </h2><h2> <i className= "a"></i> </h2> <div className="amountheld"> Points:  { heldDice.length === 5 && threeKindValue} </div>
                 <hr></hr>
-                <h2>Chance: Points:</h2> 
+                <h2>Chance: </h2><h2> <i className= "a"></i> </h2> <div className="amountheld"> Points:  {threeKindValue} </div>
             </div>
        </div>
     )
