@@ -40,17 +40,21 @@ export default function ScoreCard(props){
         for( let i = 0; i < six.length; i++){
             six[i].holding && sixArray.push(<i className="bi bi-dice-6" key = {i+1}></i>)
         }
-
+    let chancePoints = 0
+    let chanceIcons = []
     let fullHouse = []
     let threeKindValue = 0
     let numberDice = ""
+    let largeStraight = false
+    let smallStraight = false
+
     const heldDice = props.dice.filter(x => x.holding === true)
         if(heldDice.length === 3){
                 heldDice.every(x => x.value === heldDice[0].value ? true : false) ? threeKindValue = heldDice[0].value * 3 : threeKindValue = 0
-                numberDice = "bi bi-dice-3"
+                numberDice = `bi bi-dice-${String(heldDice[0].value)}`
             }else if(heldDice.length === 4){
                 heldDice.every(x => x.value === heldDice[0].value ? true : false) ? threeKindValue = heldDice[0].value * 4 : threeKindValue = 0
-                numberDice = "bi bi-dice-4"
+                numberDice = `bi bi-dice-${String(heldDice[0].value)}`
             }else if (heldDice.length === 5){
                 heldDice.every(x => x.value === heldDice[0].value ? true : false) ? threeKindValue = 50 : threeKindValue = 0
 
@@ -64,10 +68,20 @@ export default function ScoreCard(props){
                         fullHouse.push(toFindDuplicates[2], toFindDuplicates[2], toFindDuplicates[2], toFindDuplicates[0], toFindDuplicates[0])
                     }
 
-                
+                for(let val of values){
+                    chancePoints += val
+                    chanceIcons.push(<i className={`bi bi-dice-${String(val)}`}> </i>)
+                }
+
+                   let vals = values.sort()
+                   for(let i = vals.length-1; i > 0; i--){
+                        vals[i] === vals[i-1]+1  ? largeStraight = true : largeStraight = false
+                   }
             }
             
         const fullHouseIcons = fullHouse.map(die => {return (<i className = {`bi bi-dice-${String(die)}`}> </i> )}) 
+
+    
         
 
     return(
@@ -87,19 +101,19 @@ export default function ScoreCard(props){
                 <hr></hr>
             </div>
             <div className = "scoreCard"> 
-            <h2>Three of a Kind : </h2> <h2> <i className= {heldDice.length === 3 && numberDice}></i> </h2> <div className="amountheld"> Points:  {heldDice.length === 3 && threeKindValue} </div>
+            <h2>Three of a Kind : </h2> <h1> <i className= {heldDice.every(x => x.value === heldDice[0].value && heldDice.length === 3) ? numberDice : ""}></i> </h1> <div className="amountheld"> Points:  {heldDice.length === 3 && threeKindValue} </div>
                 <hr></hr>
-                <h2>Four of a Kind: </h2><h2> <i className= {heldDice.length === 4 && numberDice}></i> </h2> <div className="amountheld"> Points:  {heldDice.length === 4 && threeKindValue} </div>
+                <h2>Four of a Kind: </h2><h1> <i className= {heldDice.every(x => x.value === heldDice[0].value && heldDice.length === 4) ? numberDice : ""}></i> </h1> <div className="amountheld"> Points:  {heldDice.length === 4 && threeKindValue} </div>
                 <hr></hr>
-                <h2>Full house: </h2><h2> </h2> {fullHouseIcons} <div className="amountheld"> Points:  {fullHouse.length === 5 && "25"} </div>
+                <h2>Full house: </h2><h1>  {fullHouseIcons} </h1><div className="amountheld"> Points:  {fullHouse.length === 5 && "25"} </div>
                 <hr></hr>
                 <h2>Small straight: </h2><h2> <i className= "a"></i> </h2> <div className="amountheld"> Points:  {threeKindValue} </div>
                 <hr></hr>
-                <h2>Large straight: </h2><h2> <i className= "a"></i> </h2> <div className="amountheld"> Points:  {threeKindValue} </div>
+                <h2>Large straight: </h2><h1> { largeStraight && heldDice.map(oneD => <i className= {`bi bi-dice-${oneD.value}`}> </i>)}</h1> <div className="amountheld"> Points:  {threeKindValue} </div>
                 <hr></hr>
-                <h2>Yahtzee: </h2><h2> <i className= "a"></i> </h2> <div className="amountheld"> Points:  { heldDice.length === 5 && threeKindValue} </div>
+                <h2>Yahtzee: </h2><h1> { (heldDice.length === 5 && threeKindValue === 50) && <i className = {`bi bi-dice-${String(heldDice[0].value)}`}></i> } </h1> <div className="amountheld"> Points:  { heldDice.length === 5 && threeKindValue} </div>
                 <hr></hr>
-                <h2>Chance: </h2><h2> <i className= "a"></i> </h2> <div className="amountheld"> Points:  {threeKindValue} </div>
+                <h2>Chance: </h2><h1> {chanceIcons} </h1> <div className="amountheld"> Points:  {chancePoints} </div>
             </div>
        </div>
     )
