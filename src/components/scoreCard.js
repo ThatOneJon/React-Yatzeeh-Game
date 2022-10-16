@@ -52,9 +52,18 @@ export default function ScoreCard(props){
         if(heldDice.length === 3){
                 heldDice.every(x => x.value === heldDice[0].value ? true : false) ? threeKindValue = heldDice[0].value * 3 : threeKindValue = 0
                 numberDice = `bi bi-dice-${String(heldDice[0].value)}`
+
             }else if(heldDice.length === 4){
                 heldDice.every(x => x.value === heldDice[0].value ? true : false) ? threeKindValue = heldDice[0].value * 4 : threeKindValue = 0
                 numberDice = `bi bi-dice-${String(heldDice[0].value)}`
+                
+                let values = heldDice.map(val => val.value)
+                let vals = values.sort()
+                for(let i = vals.length-1; i > 0; i--){
+                     vals[i] === vals[i-1]+1  ? smallStraight = true : smallStraight = false
+                }
+
+
             }else if (heldDice.length === 5){
                 heldDice.every(x => x.value === heldDice[0].value ? true : false) ? threeKindValue = 50 : threeKindValue = 0
 
@@ -107,9 +116,9 @@ export default function ScoreCard(props){
                 <hr></hr>
                 <h2>Full house: </h2><h1>  {fullHouseIcons} </h1><div className="amountheld"> Points:  {fullHouse.length === 5 && "25"} </div>
                 <hr></hr>
-                <h2>Small straight: </h2><h2> <i className= "a"></i> </h2> <div className="amountheld"> Points:  {threeKindValue} </div>
+                <h2>Small straight: </h2><h1> {smallStraight && heldDice.map( y => <i className= {`bi bi-dice-${y.value}`}> </i> )} </h1> <div className="amountheld"> {smallStraight && "Points:  30"} </div>
                 <hr></hr>
-                <h2>Large straight: </h2><h1> { largeStraight && heldDice.map(oneD => <i className= {`bi bi-dice-${oneD.value}`}> </i>)}</h1> <div className="amountheld"> Points:  {threeKindValue} </div>
+                <h2>Large straight: </h2><h1> { largeStraight && heldDice.map(oneD => <i className= {`bi bi-dice-${oneD.value}`}> </i>)}</h1> <div className="amountheld"> {largeStraight && "Points:  40" }</div>
                 <hr></hr>
                 <h2>Yahtzee: </h2><h1> { (heldDice.length === 5 && threeKindValue === 50) && <i className = {`bi bi-dice-${String(heldDice[0].value)}`}></i> } </h1> <div className="amountheld"> Points:  { heldDice.length === 5 && threeKindValue} </div>
                 <hr></hr>
