@@ -116,13 +116,13 @@ export default function ScoreCard(props){
                 <hr></hr>
                 <h2>Full house: </h2><h1>  {fullHouseIcons} </h1><div className="amountheld"> Points:  {fullHouse.length === 5 && "25"} </div>
                 <hr></hr>
-                <h2>Small straight: </h2><h1> {smallStraight && heldDice.map( y => <i className= {`bi bi-dice-${y.value}`}> </i> )} </h1> <div className="amountheld"> {smallStraight && "Points:  30"} </div>
+                <h2>Small straight: </h2><h1> {smallStraight && heldDice.map( y => <i className= {`bi bi-dice-${y.value}`}> </i> )} </h1> <div className="amountheld"> Points: {smallStraight && "  30"} </div>
                 <hr></hr>
-                <h2>Large straight: </h2><h1> { largeStraight && heldDice.map(oneD => <i className= {`bi bi-dice-${oneD.value}`}> </i>)}</h1> <div className="amountheld"> {largeStraight && "Points:  40" }</div>
+                <h2>Large straight: </h2><h1> { largeStraight && heldDice.map(oneD => <i className= {`bi bi-dice-${oneD.value}`}> </i>)}</h1> <div className="amountheld"> Points: {largeStraight && "  40" }</div>
                 <hr></hr>
                 <h2>Yahtzee: </h2><h1> { (heldDice.length === 5 && threeKindValue === 50) && <i className = {`bi bi-dice-${String(heldDice[0].value)}`}></i> } </h1> <div className="amountheld"> Points:  { heldDice.length === 5 && threeKindValue} </div>
                 <hr></hr>
-                <h2>Chance: </h2><h1> {chanceIcons} </h1> <div className="amountheld"> Points:  {chancePoints} </div>
+                <h2>Chance: </h2><h1> {chanceIcons} </h1> <div className="amountheld"> Points:  {heldDice.length === 5 && chancePoints} </div>
             </div>
        </div>
     )

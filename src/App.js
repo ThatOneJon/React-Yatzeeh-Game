@@ -4,7 +4,7 @@ import Dice from "./components/Dice"
 import ScoreCard from "./components/scoreCard"
 
 function App() {
-   const [rounds, setRounds] = React.useState({round:0, data: {rollcounter: 0  }})
+   const [rolls, setRolls] = React.useState({ rollcounter: 0  })
    const [gameInProgress, setGameInProgress] = React.useState(true)
    const [rollDice, setRollDice] = React.useState(newDice())
    const [diceValues, setDiceValues] = React.useState([{
@@ -13,6 +13,13 @@ function App() {
       id: ""
 
    }])
+
+   console.log(rolls
+      )
+   function endTurn(){
+      console.log("ending")
+   }
+
 
    React.useEffect(() => {
       let ind = 0
@@ -38,14 +45,18 @@ function App() {
 
 
    function rollDiceHold(){
-      setRounds(prev => ({round: prev.round , data:{rollcounter: prev.data.rollcounter + 1 }}))
-
+      if (rolls.rollcounter < 3){ 
+      setRolls(prev => ( {rollcounter: prev.rollcounter + 1 }))
       setDiceValues(previ => {
          return (previ.map(one => {
               return( one.holding ? one : {...one, value: Math.ceil(Math.random() * 6)} )
             }
          ))
       })
+      }
+      else{
+         alert("3 Rolls per Round! End your turn!")
+      }
    }
    return (
        !gameInProgress ? <Landing start ={ () => setGameInProgress() } />     
@@ -53,6 +64,8 @@ function App() {
        <div className = "playScreen">
             <h1>Yatzeeh!</h1>
             <Dice nums ={diceValues} roll = {() => rollDiceHold()} handleClick = {toggleHold}  />
+            <h2>Rolls left: {3 - rolls.rollcounter}</h2>
+            <button className ="diceRoll" onClick = {endTurn}>End turn.</button>
             <ScoreCard dice = {diceValues} />
       </div>
    )
